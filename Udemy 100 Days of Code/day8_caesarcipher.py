@@ -1,5 +1,5 @@
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-import day8_art
+import day8_caesarcipherart
 
 def caesar(text, shift, direction):
     text_list = [i for i in text]
@@ -18,7 +18,7 @@ def caesar(text, shift, direction):
     print(f"The {direction}d message is {caesared}")
 
 restart = True
-print(day8_art.logo)
+print(day8_caesarcipherart.logo)
 
 while restart:
     direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
