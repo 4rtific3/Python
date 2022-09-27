@@ -1,4 +1,5 @@
 import day10_calculatorart as art
+import os
 
 def add(a, b):
     return a + b
@@ -75,6 +76,8 @@ def repeat():
             a = result
             first_calc = False
         else:
+            os.system('cls||clear')
+            print(art.logo)
             repeat()
 
 def run():
