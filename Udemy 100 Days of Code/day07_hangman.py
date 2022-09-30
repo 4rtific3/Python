@@ -1,11 +1,10 @@
 import random
-import day7_hangmanart
-import day7_hangmanwords
+import day07_hangmanfiles as files
 
 lives = 6
 win = True
 
-chosen_word = random.choice(day7_hangmanwords.word_list)
+chosen_word = random.choice(files.word_list)
 display = ["_" for i in chosen_word]
 guesses = []
 
@@ -18,7 +17,7 @@ def end():
         win = False
         return True
 
-print(day7_hangmanart.logo)
+print(files.logo)
 print("".join(display))
 
 while not end():
@@ -37,7 +36,7 @@ while not end():
         guesses.append(guess)
 
     print("".join(display))
-    print(day7_hangmanart.stages[lives])
+    print(files.stages[lives])
 
     if end() and win:
         print("You win!")
