@@ -24,19 +24,6 @@ def check_resources(order, resources_available):
     for i in MENU[order]["ingredients"]:
         if resources_available[i] >= ingredient[i]:
             return True
-    
-    
-    # water_needed = ingredient["water"]
-    # coffee_needed = ingredient["coffee"]
-    # if order != "espresso":
-    #     milk_needed = ingredient["milk"]
-    
-    # if water_needed < resources_available["water"] and \
-    # coffee_needed < resources_available["coffee"]:
-    #     if order != "espresso":
-    #         if milk_needed < resources_available["milk"]:
-    #             return True
-    #     return True
     else:
         print("Sorry, we don't have enough ingredients to make this drink.")
         return False
@@ -87,14 +74,6 @@ def reduce_resources(resources_available, order):
     for i in MENU[order]["ingredients"]:
         resources_available[i] -= ingredient[i]
     return resources_available
-    
-    # if order == "latte" or order == "cappuccino":
-    #     for i in resources_available:
-    #         resources_available[i] -= MENU[order]["ingredients"][i]
-    # else:
-    #     resources_available["water"] -= MENU[order]["water"]
-    #     resources_available["coffee"] -= MENU[order]["coffee"]
-    # return resources_available
 
 def coffee_machine():
     resources_available = files.resources
