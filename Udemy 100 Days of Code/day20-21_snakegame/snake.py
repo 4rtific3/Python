@@ -33,6 +33,13 @@ class Snake:
             self.snake_body[seg_num].goto(new_x, new_y)
         self.head.forward(MOVE_DIST)
     
+    def reset(self):
+        for segment in self.snake_body:
+            segment.hideturtle()
+        self.snake_body.clear()
+        self.create_snake()
+        self.head = self.snake_body[0]
+    
     def up(self):
         if self.head.heading() != DOWN:
             self.head.seth(UP)
