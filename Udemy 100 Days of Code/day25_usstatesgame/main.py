@@ -22,10 +22,6 @@ t.shape(image)
 while score < 50:
     answer_state = screen.textinput(title=f"{score}/50 Guess the State", prompt="What's another state name?").title()
     if answer_state == "Exit":
-        # for state in states_list:
-        #     if state not in guessed_states:
-        #         missed_states.append(state)
-
         missed_states = [state for state in states_list if state not in guessed_states]
         
         pd.DataFrame(missed_states).to_csv("states_to_learn.csv")
