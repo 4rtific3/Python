@@ -62,6 +62,10 @@ def reset_converter(unit_1, unit_2):
     input.insert(0, 1)
     calculate()
 
+
+# Listbox is not very effective here as highligting the value in the input box
+# removes the listbox selection and results in an error
+# May be better to use radio buttons instead
 def listbox_used(event):
     selection = listbox.get(listbox.curselection())
     if selection == "km-miles":
