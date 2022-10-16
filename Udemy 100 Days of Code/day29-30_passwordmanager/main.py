@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_pw():
@@ -27,21 +28,62 @@ def generate_pw():
     password_input.delete(0, END)
     password_input.insert(0, password)
     pyperclip.copy(password)
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def clear_inputs():
+    website_input.delete(0, END)
+    password_input.delete(0, END)
+
 def save():
-    website = website_input.get()
+    website = website_input.get().title()
     email = email_input.get()
     password = password_input.get()
+    new_data = {
+        website: {
+            "email": email,
+            "password": password,
+        }
+    }
     
     if website == "" or password == "" or email == "":
         messagebox.showinfo(title="Error", message="Please do not leave any of the fields empty")
     else:
         is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered:\nEmail: {email}\nPassword: {password}\nIs it ok to save?")
         if is_ok:
-            with open("data.txt", "a") as df:
-                df.write(f"\n{website}  {email}  {password}")
-                website_input.delete(0, END)
-                password_input.delete(0, END)
+            try:
+                with open("data.json", "r") as df:
+                    data = json.load(df)
+                    data.update(new_data)
+            except FileNotFoundError:
+                with open("data.json", "w") as df:
+                    json.dump(new_data, df, indent=4)
+            else:
+                with open("data.json", "w") as df:
+                    json.dump(data, df, indent=4)
+            finally:
+                clear_inputs()
+
+# ---------------------------- SEARCH WEBSITE ------------------------------- #
+def search_website():
+    website = website_input.get().title()
+    
+    if website == "":
+        messagebox.showinfo(title="Error", message="Please do not leave website field empty")
+    else:  
+        try:
+            with open("data.json", "r") as df:
+                data = json.load(df)
+        except FileNotFoundError:
+            messagebox.showinfo(title="Error", message="No data file found. Please add an account first")
+        else:
+            if website in data:
+                account_details = data[website]
+                account_user = account_details["email"]
+                account_pass = account_details["password"]
+                messagebox.showinfo(title="Account Details", message=f"Here are your account details for {website}:\nUsername: {account_user}\nPassword: {account_pass}")
+            else:
+                messagebox.showinfo(title="Error", message=f"You have not saved the account details from {website}")
+                
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -57,9 +99,12 @@ canvas.grid(column=1, row=0)
 website_label = Label(text="Website:")
 website_label.grid(column=0, row=1)
 
-website_input = Entry(width=50)
-website_input.grid(column=1, row=1, columnspan=2)
+website_input = Entry(width=32)
+website_input.grid(column=1, row=1)
 website_input.focus()
+
+website_search_button = Button(text="Search", width=14, command=search_website)
+website_search_button.grid(column=2, row=1)
 
 email_label = Label(text="Email/Username:")
 email_label.grid(column=0, row=2)
