@@ -99,30 +99,30 @@ canvas.grid(column=1, row=0)
 website_label = Label(text="Website:")
 website_label.grid(column=0, row=1)
 
-website_input = Entry(width=32)
-website_input.grid(column=1, row=1)
+website_input = Entry()
+website_input.grid(column=1, row=1, sticky="EW")
 website_input.focus()
 
-website_search_button = Button(text="Search", width=14, command=search_website)
-website_search_button.grid(column=2, row=1)
+website_search_button = Button(text="Search", command=search_website)
+website_search_button.grid(column=2, row=1, sticky="EW")
 
 email_label = Label(text="Email/Username:")
 email_label.grid(column=0, row=2)
 
-email_input = Entry(width=50)
-email_input.grid(column=1, row=2, columnspan=2)
+email_input = Entry()
+email_input.grid(column=1, row=2, columnspan=2, sticky="EW")
 email_input.insert(0, "name@gmail.com")
 
 password_label = Label(text="Password:")
 password_label.grid(column=0, row=3)
 
-password_input = Entry(width=32)
-password_input.grid(column=1, row=3)
+password_input = Entry()
+password_input.grid(column=1, row=3, sticky="EW")
 
-gen_pass_buttom = Button(text="Generate Password", command=generate_pw)
-gen_pass_buttom.grid(column=2, row=3)
+gen_pass_button = Button(text="Generate Password", command=generate_pw)
+gen_pass_button.grid(column=2, row=3, sticky="EW")
 
-add_button = Button(text="Add", width=43, command=save)
-add_button.grid(column=1, row=4, columnspan=2)
+add_button = Button(text="Add", command=save)
+add_button.grid(column=1, row=4, columnspan=2, sticky="EW")
 
 window.mainloop()
