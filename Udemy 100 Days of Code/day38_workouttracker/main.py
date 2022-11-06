@@ -5,6 +5,7 @@ config_obj = configparser.ConfigParser()
 config_obj.read(r"..\config.ini")
 NUTRI_ID = config_obj["ids"]["NUTRITIONIX_ID"]
 NUTRI_API_KEYS = config_obj["api keys"]["NUTRITIONIX_API_KEY"]
+SHEETY_KEY = config_obj["api keys"]["SHEETY"]
 
 nlp_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 sheety_endpoint = "https://api.sheety.co/fd0106b1139fdf3c32ae29f66eab55e1/myWorkouts/workouts"
@@ -28,7 +29,7 @@ nutri_response = requests.post(url=nlp_endpoint, json=nlp_config, headers=header
 
 sheety_headers = {
     "Content-Type": "application/json",
-    "Authorization": "Bearer 768u5ijt",
+    "Authorization": SHEETY_KEY,
 }
 
 for i in nutri_response["exercises"]:
