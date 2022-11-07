@@ -1,6 +1,7 @@
 import configparser, requests
 import datetime as dt
 from flight_data import FlightData
+from pprint import pprint
 
 config_obj = configparser.ConfigParser()
 config_obj.read("../config.ini")
@@ -35,25 +36,52 @@ class FlightSearch:
             "fly_to": iata_code,
             "date_from": dt.date.today() + dt.timedelta(days=1),
             "date_to": dt.date.today() + dt.timedelta(days=180),
-            "nights_in_dst_from": "7",
-            "nights_in_dst_to": "28",
+            "nights_in_dst_from": 7,
+            "nights_in_dst_to": 28,
             "flight_type": "round",
-            "max_stopovers": "0",
-            "limit": "1",
+            "max_stopovers": 0,
+            "limit": 1,
         }
+        
         response = requests.get(url=f"{TEQUILA_ENDPOINT}/v2/search", params=config, headers=headers)
-        data = response.json()["data"][0]
         
-        flight_data = FlightData(
-            price=data["price"],
-            dep_city=data["cityFrom"],
-            dep_airport=data["flyFrom"],
-            arr_city=data["cityTo"],
-            arr_airport=data["flyTo"],
-            dep_date=data["local_arrival"].split("T")[0],
-            return_date=data["route"][1]["local_departure"].split("T")[0],
-            link=data["deep_link"]
-        )
+        try:
+            data = response.json()["data"][0]
+        except IndexError:
+            try:
+                config["max_stopovers"] = 1
+                response = requests.get(url=f"{TEQUILA_ENDPOINT}/v2/search", params=config, headers=headers)
+                data = response.json()["data"][0]
+                
+                flight_data = FlightData(
+                    price=data["price"],
+                    dep_city=data["cityFrom"],
+                    dep_airport=data["flyFrom"],
+                    arr_city=data["cityTo"],
+                    arr_airport=data["flyTo"],
+                    dep_date=data["local_arrival"].split("T")[0],
+                    return_date=data["route"][-1]["local_departure"].split("T")[0],
+                    link=data["deep_link"],
+                    stop_overs=1,
+                    via_city=data["route"][0]["cityTo"],
+                )
+                
+                return flight_data
+            
+            except IndexError:
+                return None
+                
+        else:
+            flight_data = FlightData(
+                price=data["price"],
+                dep_city=data["cityFrom"],
+                dep_airport=data["flyFrom"],
+                arr_city=data["cityTo"],
+                arr_airport=data["flyTo"],
+                dep_date=data["local_arrival"].split("T")[0],
+                return_date=data["route"][1]["local_departure"].split("T")[0],
+                link=data["deep_link"]
+            )
         
-        return flight_data
+            return flight_data
     

@@ -16,9 +16,12 @@ sheet_data = [i for i in raw_sheety_data]
 #         iata_code = flight_search.get_iata(city)
 #         data_manager.update_iata(iata_code, i["id"])
 
-for i in sheet_data:
-    flight_data = flight_search.search_flights(i["iataCode"])
-    if flight_data.price < i["lowestPrice"]:
+for destination in sheet_data:
+    flight_data = flight_search.search_flights(destination["iataCode"])
+    if flight_data == None:
+        print(f'No flights with only 1 stopover for {destination["city"]} were found.')
+        continue
+    if flight_data.price < destination["lowestPrice"]:
         notification_manager.send_email(flight_data)
 
 
