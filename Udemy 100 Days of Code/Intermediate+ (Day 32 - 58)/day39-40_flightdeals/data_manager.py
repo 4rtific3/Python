@@ -1,7 +1,7 @@
 import configparser, requests
 
 config_obj = configparser.ConfigParser()
-config_obj.read("../config.ini")
+config_obj.read("../../config.ini")
 
 KEY = config_obj["api keys"]["SHEETY"]
 SHEETY_ENDPOINT = "https://api.sheety.co/fd0106b1139fdf3c32ae29f66eab55e1/flightDeals"

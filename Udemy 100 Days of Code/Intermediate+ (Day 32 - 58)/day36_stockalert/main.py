@@ -8,7 +8,7 @@ from pandas.tseries.offsets import BDay
 from pprint import pprint
 
 config_obj = configparser.ConfigParser()
-config_obj.read(r"C:\Users\jg2jo\OneDrive\Documents\GitHub\Python\Udemy 100 Days of Code\config.ini")
+config_obj.read("../../config.ini")
 AV_API_KEY = config_obj["api keys"]["AV_API_KEY"]
 NEWS_API_KEY = config_obj["api keys"]["NEWS_API_KEY"]
 GMAIL_PASSWORD = config_obj["passwords"]["GMAIL"]

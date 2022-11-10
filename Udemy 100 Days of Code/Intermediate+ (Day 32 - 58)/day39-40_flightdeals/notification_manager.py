@@ -1,7 +1,7 @@
 import configparser, smtplib
 
 config_obj = configparser.ConfigParser()
-config_obj.read("../config.ini")
+config_obj.read("../../config.ini")
 EMAIL_USER = "jg2test1@gmail.com"
 EMAIL_PASS = config_obj["passwords"]["GMAIL"]
 

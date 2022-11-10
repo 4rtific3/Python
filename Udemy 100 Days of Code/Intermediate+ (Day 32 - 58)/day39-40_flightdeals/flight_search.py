@@ -4,7 +4,7 @@ from flight_data import FlightData
 from pprint import pprint
 
 config_obj = configparser.ConfigParser()
-config_obj.read("../config.ini")
+config_obj.read("../../config.ini")
 
 KEY = config_obj["api keys"]["TEQUILA"]
 TEQUILA_ENDPOINT = "https://api.tequila.kiwi.com"

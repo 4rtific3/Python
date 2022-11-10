@@ -2,7 +2,7 @@ import configparser, requests
 from datetime import datetime
 
 config_obj = configparser.ConfigParser()
-config_obj.read(r"..\config.ini")
+config_obj.read("../../config.ini")
 NUTRI_ID = config_obj["ids"]["NUTRITIONIX_ID"]
 NUTRI_API_KEYS = config_obj["api keys"]["NUTRITIONIX_API_KEY"]
 SHEETY_KEY = config_obj["api keys"]["SHEETY"]
