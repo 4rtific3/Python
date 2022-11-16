@@ -14,9 +14,6 @@ from selenium.webdriver.support import expected_conditions
 from datetime import datetime, timedelta
 import time
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
 service = Service(ChromeDriverManager().install())
 options = Options()
 options.add_experimental_option("detach", True)
